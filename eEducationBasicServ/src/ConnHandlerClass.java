@@ -10,7 +10,8 @@ public class ConnHandlerClass implements Runnable {
 	
 
 	Socket sock;
-	
+	BufferedReader in;
+	PrintWriter out;
 	
 	public ConnHandlerClass(Socket sock)
 	{
@@ -30,46 +31,89 @@ public class ConnHandlerClass implements Runnable {
 		try{
 		
 		
-        final BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));   //to get message from client
-        final PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
+        in = new BufferedReader(new InputStreamReader(sock.getInputStream()));   //to get message from client
+        out = new PrintWriter(sock.getOutputStream(), true);
 
-        testChatServer.listOfOutBuffs.add(out);		//add to pool 
-        System.out.println("now, number of connections is " + testChatServer.listOfOutBuffs.size());
+        TestServer.listOfOutBuffs.add(out);		//add to pool 
+        System.out.println("now, number of connections is " + TestServer.listOfOutBuffs.size());
         
         
         String usrtxt;
-        while((usrtxt=in.readLine())!=null)    		//while non-empty message is sent
+        while((usrtxt=in.readLine())!=null)    		//null is sent when client closes its socket
         {
+        	
+        	
+        	if(usrtxt.substring(0,5).equals("group"))
+        	{	
+                                                    //groupchat message        		
         	                                   		//for now just broadcast this message to all other sockets in the socket pool
         	                                   		//
         	                                   		//later on 
         	                                   		//sockets are going to be grouped into sets based on groupIDs of clients
         	
         	
-        	for(int i=0; i<testChatServer.listOfOutBuffs.size(); i++)
+        	for(int i=0; i<TestServer.listOfOutBuffs.size(); i++)
         	
         	    {
         		
-        		if(testChatServer.listOfOutBuffs.get(i)!=out)            //to everyone except myself
-        		testChatServer.listOfOutBuffs.get(i).println(usrtxt);	
+        		if(TestServer.listOfOutBuffs.get(i)!=out)            //to everyone except myself
+        		TestServer.listOfOutBuffs.get(i).println(usrtxt);	
         		
         	    }
         
+        	}//end if message is for groupchat
+        	
+            //other message categories (including push notifications) come here
+   	     
+        	//particularly we are interested in how 7-staging events are going to be dynamically delivered
+        	//but more probable that those events are going to be exchanged in separate threads (TemplateLoops) 
+        	
+	   	    /*
+	   	     
+	   	    if(messagetype2)
+	   	      {
+	   	      TODO
+	   	      }
+	   	     
+	   	    if(messagetype3)
+	   	      {
+	   	      TODO
+	   	      }
+	   	       
+	   	    if(messagetype4)
+	   	      {
+	   	      TODO
+	   	      }
+	   	     
+	   	    */
+   	        	
+        	
         }//end while       	 
-  
-        
-       
-        
+   
+        System.out.println("conn="+sock+" has closed its socket gracefully. removing from pool...");
         out.flush();
-        out.close();  		
-        testChatServer.listOfOutBuffs.remove(testChatServer.listOfOutBuffs.indexOf(out));  //remove from pool
+        out.close(); 
+        in.close();
+        sock.close();
+        //and remove from thread pool. no exceptions can occur at this point
+        TestServer.listOfOutBuffs.remove(TestServer.listOfOutBuffs.indexOf(out));  
         
 		
 		}
-		catch(IOException e) { System.out.println("exception"); }
+		catch(IOException e) {
+		System.out.println("exception in thread for conn=" + sock + ". removing from pool...");		
+		out.flush();
+        out.close();  		
+        try {
+        in.close();	
+		sock.close();
+        //and remove from thread pool		
+        TestServer.listOfOutBuffs.remove(TestServer.listOfOutBuffs.indexOf(out));	
+		} catch (IOException e1) {System.out.println("exception while closing conn="+sock+" inside exception");}
+		}
 		
 		
 		
-	}
+	}//end run
 
 }

@@ -3,25 +3,15 @@
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 
-
-public class MainServLoop implements Runnable {
+public class ConnectionManagerLoop implements Runnable {
 
 	 Socket sock;
 	 BufferedReader in = null;
 	 DataOutputStream out = null;
-	
-	 
-	 
-	 int flag;
-	 static int myPort = 7577; //for now
-	  
-	 
+ 
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub	
@@ -41,15 +31,13 @@ public class MainServLoop implements Runnable {
             	
                 final Socket clientSocket = socket.accept();               
                 
-                System.out.println("connection received. adding to pool of connections.");
+                System.out.println("connection received. conn=" + clientSocket + ". adding to pool...");
                
-                new Thread(new ConnHandlerClass(clientSocket)).start();
-                
-                
+                new Thread(new ConnHandlerClass(clientSocket)).start();               
                
             
             }
-        } catch (IOException e) {       System.out.println("exception");       }
+        } catch (IOException e) {       System.out.println("exception in ConnectionManagerLoop (general loop)");       }
 
 		
 	}//end run
