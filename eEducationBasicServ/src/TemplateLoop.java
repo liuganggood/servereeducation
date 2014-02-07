@@ -2,11 +2,11 @@
 public class TemplateLoop implements Runnable {
 
 	
-	int id;
+	Template template;
 	
-	public TemplateLoop(int id){
+	public TemplateLoop(Template template){
 				
-		this.id = id;
+		this.template = template;
 			
 	}
 	

@@ -18,11 +18,7 @@ public class ConnHandlerClass implements Runnable {
 		
 		this.sock = sock;	
 		
-	}
-	
-	
-	
-	
+	}	
 	
 	@Override
 	public void run() {
@@ -43,7 +39,7 @@ public class ConnHandlerClass implements Runnable {
         {
         	
         	
-        	if(usrtxt.substring(0,5).equals("group"))
+        	if(usrtxt.substring(0,8).equals("groupmsg"))
         	{	
                                                     //groupchat message        		
         	                                   		//for now just broadcast this message to all other sockets in the socket pool
