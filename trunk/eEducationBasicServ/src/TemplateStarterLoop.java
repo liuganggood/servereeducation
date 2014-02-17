@@ -45,8 +45,8 @@ public class TemplateStarterLoop implements Runnable {
 			   (hour==11 && minute ==50) ||
 			   (hour==12 && minute ==45) ||
 			   (hour==13 && minute ==35) ||
-			   (hour==14 && minute ==25) ||    
-			   (hour==15 && minute ==15) ||
+			   (hour==14 && minute ==25) ||      
+			   (hour==15 && minute ==15) || 
 			   (hour==16 && minute ==10) ||
 			   (hour==17 && minute == 0)					
 			  )

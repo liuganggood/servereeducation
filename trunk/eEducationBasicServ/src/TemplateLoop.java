@@ -45,6 +45,13 @@ public class TemplateLoop implements Runnable {
 			dt2 = new Date(dt1.getYear(), dt1.getMonth(), dt1.getDate(), dt1.getHours(), dt1.getMinutes()+act.duration);
 			
 			System.out.println("[" + dt1.getHours() + ":" + dt1.getMinutes() + "]" + " action start (template " + template.id + ")");
+			//
+			//and send notification about action start 
+			//
+			for(int j=0; j<TestServer.listOfOutBuffs.size(); j++)
+				TestServer.listOfOutBuffs.get(j).println("notific:NOTIFICATION - ACTION STARTED!!!");
+			
+			
 			
 			//***********in this example we use loop because we assume that at any instant of time there is only one running action 
 			while(!(dt1.getHours()==dt2.getHours()&&dt1.getMinutes()==dt2.getMinutes()))
@@ -60,7 +67,13 @@ public class TemplateLoop implements Runnable {
 			//**********
 			
 		    System.out.println("[" + dt1.getHours() + ":" + dt1.getMinutes() + "]" + " action finish (template " + template.id +")");
-
+            //
+		    //and send notification about action end
+		    //
+		    for(int j=0; j<TestServer.listOfOutBuffs.size(); j++)
+				TestServer.listOfOutBuffs.get(j).println("notific:NOTIFICATION - ACTION FINISHED!!!");
+			
+		    
 			
 		}//end for
 		
