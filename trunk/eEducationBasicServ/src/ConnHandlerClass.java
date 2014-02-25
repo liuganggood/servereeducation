@@ -1,6 +1,10 @@
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
@@ -48,6 +52,8 @@ public class ConnHandlerClass implements Runnable {
         	                                   		//sockets are going to be grouped into sets based on groupIDs of clients
         	
         	
+        	System.out.println("broadcasting to all clients: " + usrtxt);	
+        		
         	for(int i=0; i<TestServer.listOfOutBuffs.size(); i++)
         	
         	    {
@@ -64,8 +70,29 @@ public class ConnHandlerClass implements Runnable {
         	//particularly we are interested in how 7-staging events are going to be dynamically delivered
         	//but more probable that those events are going to be exchanged in separate threads (TemplateLoops) 
         	
-	   	    /*
+	   	    if(usrtxt.substring(0,8).equals("download"))
+	   	    {
+	   	    
+	   	    System.out.println("accepted download request. sending");	
+	   	    	
+	   	    //send file
+	   	    out.println("filedown:");	
+	   	   	
+	   	    
+	   	    File transferFile = new File("sunset.jpg");
+	   	    byte[] bytearray = new byte[(int)transferFile.length()];
+	   	    FileInputStream fin = new FileInputStream(transferFile);
+	   	    BufferedInputStream bin = new BufferedInputStream(fin);
+	   	    bin.read(bytearray, 0, bytearray.length);
+	   	    sock.getOutputStream().write(bytearray, 0, bytearray.length);
+	   	    sock.getOutputStream().flush();	   	    
+	   	    
+	   	    
+	   	    }
+	   	    
 	   	     
+	   	     
+	   	    /* 
 	   	    if(messagetype2)
 	   	      {
 	   	      TODO
