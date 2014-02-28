@@ -18,7 +18,7 @@ public class TestServer {
 		
 	new Thread(new ConnectionManagerLoop()).start();  //accept connections and populate connections pool (above)
 	
-	new Thread(new DownloadManagerLoop()  ).start();  //accept download requests and send files to clients
+	new Thread(new DownloadManagerLoop  ()).start();  //accept download requests and send files to clients
 		
 	new Thread(new TemplateStarterLoop()  ).start();  //track the time from very first to very last classhour slot and 
 	                                                  //start templates 
