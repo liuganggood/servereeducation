@@ -11,7 +11,10 @@ public class DownloadManagerLoop implements Runnable {
 	 Socket sock;
 	 BufferedReader in = null;
 	 DataOutputStream out = null;
- 
+	 
+	 Socket socket;
+	 Socket socket2;
+	 
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub	
@@ -29,10 +32,10 @@ public class DownloadManagerLoop implements Runnable {
             
             while (true) {
             	
-
-                final Socket socket = serverSocket.accept();  //data line             
-                final Socket socket2= serverSocket2.accept(); //control line            
-                       	
+            synchronized(this){
+                socket = serverSocket.accept();  //data line             
+                socket2= serverSocket2.accept(); //control line            
+            }      	
                 System.out.println("down.request received. conn=" + socket);
                
                 new Thread(new DownHandlerClass(socket, socket2)).start();               
