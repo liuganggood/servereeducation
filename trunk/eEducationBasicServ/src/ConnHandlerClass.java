@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.StringTokenizer;
 
 
 public class ConnHandlerClass implements Runnable {
@@ -16,6 +17,13 @@ public class ConnHandlerClass implements Runnable {
 	Socket sock;
 	BufferedReader in;
 	PrintWriter out;
+	
+	
+	///////////////////////for experimental use only
+	int count = 0;
+	///////////////////////
+	
+	
 	
 	public ConnHandlerClass(Socket sock)
 	{
@@ -70,7 +78,43 @@ public class ConnHandlerClass implements Runnable {
         	//particularly we are interested in how 7-staging events are going to be dynamically delivered
         	//but more probable that those events are going to be exchanged in separate threads (TemplateLoops) 
         	   	  
-	   	     
+	   	    
+        	if(usrtxt.substring(0,9).equals("parentmsg"))
+        	{
+        		
+        	//tokenize student ID and message body
+        	String studid;
+        	String msgbody;
+        	StringTokenizer tok = new StringTokenizer(usrtxt.substring(10),":");	
+        		
+        	studid  = tok.nextToken(); //student ID	
+        		
+        	msgbody = tok.nextToken(); //message body
+        		
+        		
+        	System.out.println("received message for parent of student ID=" + studid + " => "+msgbody);
+        	
+        	
+        	//now forward this message to corresponding parent
+        	
+        	//assume that 
+        	//parent of first  selected student is connection index 0
+        	//and 
+        	//parent of second selected student is connection index 1
+        	
+        	
+        	if(count==0)
+    		{ 
+             TestServer.listOfOutBuffs.get(0).println("notific:" + msgbody);
+    		 count++;
+    		}
+
+        	else
+          	 TestServer.listOfOutBuffs.get(1).println("notific:" + msgbody);
+        	
+        	
+        	}//end if message is for parent
+        	
 	   	    /* 
 	   	    if(messagetype2)
 	   	      {
