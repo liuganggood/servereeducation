@@ -9,4 +9,24 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>DiaryServlet</display-name>
+    <servlet-name>DiaryServlet</servlet-name>
+    <servlet-class>DiaryServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DiaryServlet</servlet-name>
+    <url-pattern>/diaryservlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RegistryServlet</display-name>
+    <servlet-name>RegistryServlet</servlet-name>
+    <servlet-class>RegistryServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegistryServlet</servlet-name>
+    <url-pattern>/registryservlet</url-pattern>
+  </servlet-mapping>
 </web-app>
