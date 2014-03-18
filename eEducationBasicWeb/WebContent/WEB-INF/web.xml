@@ -29,4 +29,14 @@
     <servlet-name>RegistryServlet</servlet-name>
     <url-pattern>/registryservlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AssignmentServlet</display-name>
+    <servlet-name>AssignmentServlet</servlet-name>
+    <servlet-class>AssignmentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AssignmentServlet</servlet-name>
+    <url-pattern>/assignmentservlet</url-pattern>
+  </servlet-mapping>
 </web-app>
