@@ -39,4 +39,14 @@
     <servlet-name>AssignmentServlet</servlet-name>
     <url-pattern>/assignmentservlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TemplateServlet</display-name>
+    <servlet-name>TemplateServlet</servlet-name>
+    <servlet-class>TemplateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TemplateServlet</servlet-name>
+    <url-pattern>/TemplateServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
