@@ -49,7 +49,7 @@ public class TemplateLoop implements Runnable {
 			//and send notification about action start 
 			//
 			for(int j=0; j<TestServer.listOfOutBuffs.size(); j++)
-				TestServer.listOfOutBuffs.get(j).println("notific:NOTIFICATION - ACTION STARTED!!!");
+				TestServer.listOfOutBuffs.get(j).println("notific:NOTIFICATION - ACTION STARTED!!!(template " + template.id + ")");
 			
 			
 			
@@ -71,7 +71,7 @@ public class TemplateLoop implements Runnable {
 		    //and send notification about action end
 		    //
 		    for(int j=0; j<TestServer.listOfOutBuffs.size(); j++)
-				TestServer.listOfOutBuffs.get(j).println("notific:NOTIFICATION - ACTION FINISHED!!!");
+				TestServer.listOfOutBuffs.get(j).println("notific:NOTIFICATION - ACTION FINISHED!!!(template " + template.id + ")");
 			
 		    
 			
